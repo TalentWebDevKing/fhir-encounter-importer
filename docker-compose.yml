@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    container_name: fhir_pg
+    restart: always
+    environment:
+      POSTGRES_USER: fhiruser
+      POSTGRES_PASSWORD: fhirpass
+      POSTGRES_DB: fhirdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - fhir-net
+
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: fhiruser
+      DB_PASSWORD: fhirpass
+      DB_NAME: fhirdb
+    networks:
+      - fhir-net
+
+volumes:
+  pgdata:
+
+networks:
+  fhir-net:
