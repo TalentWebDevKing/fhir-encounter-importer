@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      DB_HOST: db
+      DB_HOST: fhiruser
       DB_PORT: 5432
       DB_USER: fhiruser
       DB_PASSWORD: fhirpass

@@ -2,10 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
-	"time"
-
-	"github.com/yourusername/fhir-encounter-importer/internal/model"
+	"github.com/TalentWebDevKing/fhir-encounter-importer/internal/model"
 )
 
 // CreatePatient inserts a patient if not exists
