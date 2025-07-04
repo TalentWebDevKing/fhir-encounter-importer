@@ -15,20 +15,20 @@ type FHIREncounterListResponse struct {
 }
 
 type FHIREncounterEntry struct {
-    Resource struct {
-        ID          string `json:"id"`
-        Subject     struct {
-            Reference string `json:"reference"`
-        } `json:"subject"`
-        Participant []struct {
-            Individual struct {
-                Reference string `json:"reference"`
-            } `json:"individual"`
-        } `json:"participant"`
-        Period struct {
-            Start string `json:"start"`
-        } `json:"period"`
-    } `json:"resource"`
+	Resource struct {
+		ID          string `json:"id"`
+		Subject     struct {
+			Reference string `json:"reference"`
+		} `json:"subject"`
+		Participant []struct {
+			Individual struct {
+				Reference string `json:"reference"`
+			} `json:"individual"`
+		} `json:"participant"`
+		Period struct {
+			Start string `json:"start"`
+		} `json:"period"`
+	} `json:"resource"`
 }
 
 func FetchEncounters(page int) ([]FHIREncounterEntry, error) {
