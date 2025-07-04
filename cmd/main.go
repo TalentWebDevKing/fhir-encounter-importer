@@ -3,19 +3,19 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
-
 	"github.com/TalentWebDevKing/fhir-encounter-importer/internal/db"
+	"github.com/TalentWebDevKing/fhir-encounter-importer/internal/utils"
+	"github.com/TalentWebDevKing/fhir-encounter-importer/internal/fhir"
 )
 
 func main() {
 	// Load DB config from env
 	cfg := db.Config{
 		Host:     utils.GetEnv("DB_HOST", "localhost"),
-		Port:     getEnv("DB_PORT", "5432"),
-		User:     getEnv("DB_USER", "fhiruser"),
-		Password: getEnv("DB_PASSWORD", "fhirpass"),
-		DBName:   getEnv("DB_NAME", "fhirdb"),
+		Port:     utils.GetEnv("DB_PORT", "5432"),
+		User:     utils.GetEnv("DB_USER", "fhiruser"),
+		Password: utils.GetEnv("DB_PASSWORD", "fhirpass"),
+		DBName:   utils.GetEnv("DB_NAME", "fhirdb"),
 	}
 
 	// Connect to DB
@@ -26,5 +26,9 @@ func main() {
 	defer conn.Close()
 	fmt.Println("✅ Connected to PostgreSQL!")
 
-	// TODO: Start importer here
+	entries, err := fhir.FetchEncounters(1)
+	if err != nil {
+		log.Fatalf("❌ Failed to fetch encounters: %v", err)
+	}
+	fmt.Printf("✅ Got %d encounters!\n", len(entries))
 }
